@@ -1,0 +1,67 @@
+﻿<Window x:Class="AttendanceSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Attendance System" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#FF007ACC"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#FF007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF007ACC"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="RowBackground" Value="#FFE6F7FF"/>
+            <Setter Property="AlternatingRowBackground" Value="#FFD6EFFF"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="BorderBrush" Value="#FF007ACC"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#FF007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FFF0F4F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Grid Margin="5">
+                <TextBox x:Name="txtName" Width="200" VerticalAlignment="Center"/>
+                <TextBlock Text="Enter your name" 
+                           Foreground="Gray" 
+                           VerticalAlignment="Center" 
+                           Margin="10,0,0,0"
+                           IsHitTestVisible="False"
+                           Visibility="{Binding Text.IsEmpty, ElementName=txtName, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+            <Button x:Name="btnMarkTimeIn" Content="Mark Time In" Click="btnMarkTimeIn_Click"/>
+            <Button x:Name="btnMarkTimeOut" Content="Mark Time Out" Click="btnMarkTimeOut_Click"/>
+            <Button x:Name="btnOpenAdminDashboard" Content="Admin Dashboard" Click="btnOpenAdminDashboard_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="dataGridAttendance" Grid.Row="1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Employee Name" Binding="{Binding StaffName}" Width="*"/>
+                <DataGridTextColumn Header="Time In" Binding="{Binding TimeIn}" Width="*"/>
+                <DataGridTextColumn Header="Time Out" Binding="{Binding TimeOut}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
